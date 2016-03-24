@@ -19,13 +19,8 @@ module ActsAsCsv
       @headers = file.gets.chomp.split(', ')
 
       file.each do |row|
-        hash = {}
-        x = row.chomp.split(', ').map.with_index { |val, i|
-          hash[@headers[i]] = val
-        }
-        #p hash
         @csv_contents << CsvRow.new(
-            hash
+            Hash[@headers.zip row.chomp.split(', ')]
            )
       end
     end
